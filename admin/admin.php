@@ -27,22 +27,19 @@
         http://www.gnu.org/licenses/gpl-3.0.html
         
 ******************************************************************************/
-$filepath = realpath (dirname(__FILE__));
-include_once($filepath.'/includes.php');
-
-function eocdbr_register_settings(){
-    add_option( 'eocdbr_query', '');
-
-    register_setting( 'default', 'eocdbr_query' );
-}
-add_action( 'admin_init', 'eocdbr_register_settings' );
 
 function eocdbr_add_plugins_page(){
-    add_plugins_page('EOC Database Reader', 'EOC Database Reader', 'manage_options', 'eocdbr-options', 'eocdbr_options_page');
+    $page_title =  'EOC Database Reader';
+    $menu_title = 'EOC Database Reader';
+    $capability = 'manage_options';
+    $menu_slug = 'eocdbr-admin';
+    $function = 'eocdbr_admin_page';
+    $icon_url = plugin_dir_url( __FILE__ ).'images/eocdbr.png';
+    add_menu_page($page_title, $menu_title, $capability, $menu_slug, $function, $icon_url);
 }
 add_action( 'admin_menu','eocdbr_add_plugins_page');
 
-function eocdbr_options_page(){ ?>
+function eocdbr_admin_page(){ ?>
     <div class="wrap">
         <?php screen_icon(); ?>
         <h2>EOC Database Reader Setting</h2>

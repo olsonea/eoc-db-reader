@@ -27,13 +27,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
                                                                                                             http://www.gnu.org/licenses/gpl-3.0.html
                                                                                                                     
                                                                                                                     ******************************************************************************/
-$filepath = realpath (dirname(__FILE__));
-include_once($filepath.'/includes.php');
 
 function eocdbr_register_settings(){
-    add_option( 'eocdbr_query', '');
-    register_setting( 'default', 'eocdbr_query' );
+        add_option( 'eocdbr_query', '');
+
+            register_setting( 'default', 'eocdbr_query' );
 }
 add_action( 'admin_init', 'eocdbr_register_settings' );
 
-?>

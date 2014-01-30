@@ -13,12 +13,6 @@ include_once($filepath.'/includes.php');
 
 function dbr_show_results(){
 	global $wpdb;
-	//$query = $wpdb->prepare('select ID, user_login, user_email from wp_users order by ID asc;');
-	//$query = 'select ID, user_login, user_email from wp_users order by ID asc;'; 
-	//$query = 'select option_id, option_name from wp_options order by option_id asc;';
-		//$query doesn't need to be prepared because it has no inputs.
-	//$query = 'show tables;';
-	//$query = 'describe wp_comments;';
 	$query = get_option('eocdbr_query');
 	$results = $wpdb->get_results($query,ARRAY_A);
 	echo "Query: '$query'<br />";
@@ -42,14 +36,14 @@ function dbr_queryResultAsTable($results) {
 
 
 // Add settings link on plugin page
-function eocdbr_plugin_settings_link($links) {
-  $settings_link = '<a href="plugins.php?page=eocdbr-options">Settings</a>';
-  array_unshift($links, $settings_link);
+function eocdbr_plugin_admin_link($links) {
+  $admin_link = '<a href="admin.php?page=eocdbr-admin">Settings</a>';
+  array_unshift($links, $admin_link);
   return $links;
 }
 
 $plugin = plugin_basename(__FILE__);
-add_filter("plugin_action_links_$plugin", 'eocdbr_plugin_settings_link' );
+add_filter("plugin_action_links_$plugin", 'eocdbr_plugin_admin_link' );
 
 ?>
 
