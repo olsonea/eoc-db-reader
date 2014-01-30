@@ -31,7 +31,7 @@ function dbr_queryResultAsTable($results) {
     if(count($results) == 0) {
         echo '<em>No rows returned</em>';
     } else {
-	echo '<table><thead><tr><th>'.implode('</th><th>', array_keys(reset($results))).'</th></tr></thead><tbody>'."\n";
+	echo '<table><thead><tr><th class="eocdbr">'.implode('</th><th class="eocdbr">', array_keys(reset($results))).'</th></tr></thead><tbody>'."\n";
         foreach($results as $result) {
         	echo '<tr><td>'.implode('</td><td>', array_values($result)).'</td></tr>'."\n";
         }
