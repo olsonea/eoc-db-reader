@@ -28,4 +28,6 @@ class RecordSet {
     }
 }
 
+//foo
+
 ?>
