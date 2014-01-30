@@ -5,5 +5,8 @@ $filepath = realpath (dirname(__FILE__));
 
 include_once($filepath.'/settings.php');
 
+include_once($filepath.'/css/eocdbr.css');
+
+
 ?>
 

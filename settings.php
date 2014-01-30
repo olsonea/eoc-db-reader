@@ -49,16 +49,35 @@ function eocdbr_options_page(){ ?>
 			<?php settings_fields( 'default' ); ?>
 			<h3>Database Query Configuration</h3>
 				<p>This settings page allows you to enter a valid mysql database query. This is the query that will be executed by the plugin.</p>
-				<table class="form-table">
-					<tr valign="top">
-						<th scope="row"><label for="eocdbr_query">Query: </label></th>
-						<td><input class="regular-text" type="text" id="eocdbr_query" name="eocdbr_query" value="<?php echo get_option('eocdbr_query'); ?>" /></td>
-					</tr>
-				</table>
+				<?php
+					$results  = dbr_list_tables();
+					dbr_table_select_options($results);
+				?>
+				<label class="eocdbr" for="eocdbr_query">Query: </label>
+				<input class="regular-text" type="text" id="eocdbr_query" name="eocdbr_query" value="<?php echo get_option('eocdbr_query'); ?>" />
 			<?php submit_button(); ?>
 		</form>
 	</div>
 <?php
+}
+
+function dbr_list_tables(){
+        global $wpdb;
+        $query = 'show tables;';
+        $results = $wpdb->get_results($query,ARRAY_A);
+	return $results;
+}
+
+function dbr_table_select_options($results) {
+    if(count($results) == 0) {
+         echo '<em>No rows returned</em>';
+    } else {
+	echo '<label class="eocdbr" for="eocdbr_table">Select Table: </label><select id="eocdbr_tables" name="eocdbr_tables">';
+        foreach($results as $result) {
+                echo '<option value="'.implode('">', array_values($result)).'">'.implode('</option>',array_values($result)).'</option>';
+        }
+        echo '</select><br />';
+    }
 }
 
 ?>
