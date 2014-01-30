@@ -12,16 +12,21 @@ $filepath = realpath (dirname(__FILE__));
 include_once($filepath.'/includes.php');
 
 function dbr_show_results(){
-	global $wpdb;
+	/*global $wpdb;
 	$query = get_option('eocdbr_query');
 	$results = $wpdb->get_results($query,ARRAY_A);
 	echo "Query: '$query'<br />";
-	dbr_queryResultAsTable($results);
+	dbr_queryResultAsTable($results);*/
+
+    $rc = new RecordSet();
+    $query = 'show tables;';
+    $rc->setQuery($query);
+    $rc->displayTable();
 }
 
 add_shortcode('dbr_show_results','dbr_show_results');
 
-function dbr_queryResultAsTable($results) {
+/*function dbr_queryResultAsTable($results) {
     if(count($results) == 0) {
         echo '<em>No rows returned</em>';
     } else {
@@ -32,7 +37,7 @@ function dbr_queryResultAsTable($results) {
 
         echo '</tbody></table>';
     }
-}
+}*/
 
 
 // Add settings link on plugin page
