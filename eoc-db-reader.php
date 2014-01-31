@@ -11,7 +11,7 @@ License: GPL3
 $filepath = realpath (dirname(__FILE__));
 include_once($filepath.'/includes.php');
 
-function dbr_show_results($atts){
+function dbr_show_table($atts){
     extract(shortcode_atts(array('query_id' => 0), $atts));
     $query = new DBR_Query();
     $rc = new DBR_RecordSet();
@@ -19,7 +19,17 @@ function dbr_show_results($atts){
     $rc->displayTable();
 }
 
-add_shortcode('dbr_show_results','dbr_show_results');
+add_shortcode('dbr_show_table','dbr_show_table');
+
+function dbr_show_form($atts){
+    extract(shortcode_atts(array('query_id' => 0), $atts));
+    $query = new DBR_Query();
+    $rc = new DBR_RecordSet();
+    $rc->setQuery($query->get_query_string_by_id($query_id));
+    $rc->displayForm();
+}
+
+add_shortcode('dbr_show_form','dbr_show_form');
 
 // Add settings link on plugin page
 function eocdbr_plugin_admin_link($links) {
