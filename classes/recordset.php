@@ -1,6 +1,6 @@
 <?php
 
-class RecordSet {
+class DBR_RecordSet {
     private $query = '';
     private $results = array();
 

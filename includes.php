@@ -7,6 +7,7 @@ include_once($filepath.'/settings.php');
 
 include_once($filepath.'/admin/admin.php');
 
+include_once($filepath.'/classes/query.php');
 include_once($filepath.'/classes/recordset.php');
 
 add_action( 'wp_enqueue_scripts', 'eocdbr_register_stylesheet' );

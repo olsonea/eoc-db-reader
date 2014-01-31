@@ -11,10 +11,11 @@ License: GPL3
 $filepath = realpath (dirname(__FILE__));
 include_once($filepath.'/includes.php');
 
-function dbr_show_results(){
-    $rc = new RecordSet();
-    $query = get_option('eocdbr_query');
-    $rc->setQuery($query);
+function dbr_show_results($atts){
+    extract(shortcode_atts(array('query_id' => 0), $atts));
+    $query = new DBR_Query();
+    $rc = new DBR_RecordSet();
+    $rc->setQuery($query->get_query_string_by_id($query_id));
     $rc->displayTable();
 }
 
