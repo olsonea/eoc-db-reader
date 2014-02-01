@@ -19,8 +19,7 @@ class DBR_RecordSet {
         $results = $wpdb->get_row($this->query,OBJECT);
         $this->results = $results;
     }
-        
-
+     
     public function displayTable(){
         $this->fetchRecordsArray($this->query);
         if(count($this->results) == 0) {
@@ -35,27 +34,28 @@ class DBR_RecordSet {
     }
 
     public function displayForm(){
-        $this->fetchRecordsObject($this->query);
-        if(count($this->results) == 0) {
-            echo '<em>No rows returned</em>';
+        if (!isset($_POST['submit'])) {
+            $this->fetchRecordsObject($this->query);
+            if(count($this->results) == 0) {
+                echo '<em>No rows returned</em>';
+            } else { ?>
+                <div class=wrap>
+					<form method="post" action ="">
+						<table>
+						<?php foreach ($this->results as $key => $value){
+							echo '<tr><th><label class="eocdbr" for="'.$key.'">'.$key.': </label></th>'."\n";
+							echo '<td><input class="regular-text" type="text" id="'.$key.'" name="'.$key.'" value="'.$value.'" /></td></tr>'."\n";
+							}?>
+						</table>
+						<button type="submit" name="submit">Submit</button>
+					</form>
+                </div> <?php
+            }
         } else {
-            /*echo '<table><thead><tr><th class="eocdbr">'.implode('</th><th class="eocdbr">', array_keys(reset($this->results))).'</th></tr></thead><tbody>'."\n";
-            foreach($this->results as $result) {
-                echo '<tr><td>'.implode('</td><td>', array_values($result)).'</td></tr>'."\n";
-            }
-            echo '</tbody></table>';*/
-            echo '<div class=wrap>';
-            echo '<form><table>';
-            foreach ($this->results as $key => $value){
-                echo '<tr><th><label class="eocdbr" for="'.$key.'">'.$key.': </label></th>'."\n";
-                echo '<td><input class="regular-text" type="text" id="'.$key.'" name="'.$key.'" value="'.$value.'" /></td></tr>'."\n";
-            }
-            echo '</table>';
-            echo '<button type="submit">Submit</button>';
-            echo '</form>';
-            echo '</div>';
+            foreach($_POST as $key => $value){
+				echo "$key => $value<br>";
+			}   
         }
     }
 }
-
 ?>

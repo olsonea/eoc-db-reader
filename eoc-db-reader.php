@@ -40,6 +40,4 @@ function eocdbr_plugin_admin_link($links) {
 
 $plugin = plugin_basename(__FILE__);
 add_filter("plugin_action_links_$plugin", 'eocdbr_plugin_admin_link' );
-
 ?>
-

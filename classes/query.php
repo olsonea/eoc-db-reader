@@ -14,6 +14,5 @@ class DBR_Query {
         $result = $wpdb->query($wpdb->prepare("INSERT INTO wp_eocdbr_queries (query) VALUES ('%s');", $query));
         return $result;
     }
-
 }
 ?>
