@@ -20,10 +20,10 @@ class DBR_RecordSet {
 		?>
 			<div class=wrap>
 				<form method="post" action ="">
-					<table>
+					<table class="eocdbr">
 					<?php foreach ($this->results as $key => $value){
-						echo '<tr><th><label class="eocdbr" for="'.$key.'">'.$key.': </label></th>'."\n";
-						echo '<td><input class="regular-text" type="text" id="'.$key.'" name="'.$key.'" value="'.$value.'" /></td></tr>'."\n";
+						echo '<tr><th class="eocdbr"><label class="eocdbr" for="'.$key.'">'.$key.': </label></th>'."\n";
+						echo '<td class="eocdbr"><input class="eocdbr" type="text" id="'.$key.'" name="'.$key.'" value="'.$value.'" /></td></tr>'."\n";
 						}?>
 					</table>
 					<button type="submit" name="submit">Submit</button>
@@ -47,9 +47,9 @@ class DBR_RecordSet {
         if(count($this->results) == 0) {
             echo '<em>No rows returned</em>';
         } else {
-            echo '<table><thead><tr><th class="eocdbr">'.implode('</th><th class="eocdbr">', array_keys(reset($this->results))).'</th></tr></thead><tbody>'."\n";
+            echo '<table class="eocdbr"><thead><tr><th class="eocdbr">'.implode('</th><th class="eocdbr">', array_keys(reset($this->results))).'</th></tr></thead><tbody>'."\n";
             foreach($this->results as $result) {
-                echo '<tr><td>'.implode('</td><td>', array_values($result)).'</td></tr>'."\n";
+                echo '<tr><td class="eocdbr">'.implode('</td><td>', array_values($result)).'</td></tr>'."\n";
             }
             echo '</tbody></table>';
         }

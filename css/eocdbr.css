@@ -6,10 +6,27 @@ th.eocdbr {
 font-size: 14px;
 font-weight: 600;
 text-align: left;
+width: 300px;
 }
 
 label.eocdbr {
 text-align: right;
-width: 200px;
+width: 300px;
 display: inline-block;
+}
+
+td.eocdbr {
+text-align: left;
+width: 150px;
+}
+
+input.eocdbr {
+text-align: left;
+width: 150px;
+}
+
+table.eocdbr {
+width: 450px;
+margin-left: auto;
+margin-right: auto;
 }
