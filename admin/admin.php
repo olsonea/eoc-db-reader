@@ -27,6 +27,8 @@
         http://www.gnu.org/licenses/gpl-3.0.html
         
 ******************************************************************************/
+$filepath = realpath (dirname(dirname(__FILE__)));
+include_once($filepath.'/includes.php');
 
 function eocdbr_add_plugins_page(){
     $page_title =  'EOC Database Reader';
@@ -47,14 +49,25 @@ function eocdbr_admin_page(){ ?>
             <?php settings_fields( 'default' ); ?>
             <h3>Database Query Configuration</h3>
                 <p>This settings page allows you to enter a valid mysql database query. This is the query that will be executed by the plugin.</p>
+                <table>
                 <?php
                     $results  = dbr_list_tables();
                     dbr_table_select_options($results);
                 ?>
-                <label class="eocdbr" for="eocdbr_query">Query: </label>
-                <input class="regular-text" type="text" id="eocdbr_query" name="eocdbr_query" value="<?php echo get_option('eocdbr_query'); ?>" />
+                	<tr>
+						<th><label class="eocdbr" for="eocdbr_query">Query: </label></th>
+						<td><input class="regular-text" type="text" id="eocdbr_query" name="eocdbr_query" value="<?php echo get_option('eocdbr_query'); ?>" /></td>
+					</tr>					
+                </table>
             <?php submit_button(); ?>
         </form>
+        <?php
+			$query_id = 4;
+			$query = new DBR_Query();
+			$rc = new DBR_RecordSet();
+			$rc->setQuery($query->get_query_string_by_id($query_id));
+			$rc->displayTable();
+        ?>
     </div>
 <?php
 }
@@ -70,11 +83,11 @@ function dbr_table_select_options($results) {
     if(count($results) == 0) {
          echo '<em>No rows returned</em>';
     } else {
-    echo '<label class="eocdbr" for="eocdbr_table">Select Table: </label><select id="eocdbr_tables" name="eocdbr_tables">';
+		echo '<tr><th><label class="eocdbr" for="eocdbr_table">Select Table: </label></th><td><select id="eocdbr_tables" name="eocdbr_tables">'."\n";
         foreach($results as $result) {
                 echo '<option value="'.implode('">', array_values($result)).'">'.implode('</option>',array_values($result)).'</option>';
         }
-        echo '</select><br />';
+        echo '</select></td></tr><br />';
     }
 }
 
