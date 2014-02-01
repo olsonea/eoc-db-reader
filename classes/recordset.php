@@ -4,10 +4,6 @@ class DBR_RecordSet {
     private $query = '';
     private $results = array();
 
-    public function setQuery($query_string){
-        $this->query = $query_string;
-    }
-
     private function fetchRecordsArray(){
         global $wpdb;
         $results = $wpdb->get_results($this->query,ARRAY_A);
@@ -18,6 +14,32 @@ class DBR_RecordSet {
         global $wpdb;
         $results = $wpdb->get_row($this->query,OBJECT);
         $this->results = $results;
+    }
+
+    private function formatForm(){
+		?>
+			<div class=wrap>
+				<form method="post" action ="">
+					<table>
+					<?php foreach ($this->results as $key => $value){
+						echo '<tr><th><label class="eocdbr" for="'.$key.'">'.$key.': </label></th>'."\n";
+						echo '<td><input class="regular-text" type="text" id="'.$key.'" name="'.$key.'" value="'.$value.'" /></td></tr>'."\n";
+						}?>
+					</table>
+					<button type="submit" name="submit">Submit</button>
+				</form>
+			</div> 
+		<?php
+	}
+
+	private function writeRecords(){
+		foreach($_POST as $key => $value){
+			echo "$key => $value<br>";
+		}
+	}
+
+	public function setQuery($query_string){
+        $this->query = $query_string;
     }
      
     public function displayTable(){
@@ -38,24 +60,14 @@ class DBR_RecordSet {
             $this->fetchRecordsObject($this->query);
             if(count($this->results) == 0) {
                 echo '<em>No rows returned</em>';
-            } else { ?>
-                <div class=wrap>
-					<form method="post" action ="">
-						<table>
-						<?php foreach ($this->results as $key => $value){
-							echo '<tr><th><label class="eocdbr" for="'.$key.'">'.$key.': </label></th>'."\n";
-							echo '<td><input class="regular-text" type="text" id="'.$key.'" name="'.$key.'" value="'.$value.'" /></td></tr>'."\n";
-							}?>
-						</table>
-						<button type="submit" name="submit">Submit</button>
-					</form>
-                </div> <?php
+            } else {
+				$this->formatForm();
             }
         } else {
-            foreach($_POST as $key => $value){
-				echo "$key => $value<br>";
-			}   
+            $this->writeRecords();
         }
     }
+    
+
 }
 ?>
