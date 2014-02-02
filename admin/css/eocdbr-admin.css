@@ -6,12 +6,12 @@ th.eocdbr {
 font-size: 14px;
 font-weight: 600;
 text-align: left;
-width: 300px;
+width: 100px;
 }
 
 label.eocdbr {
-text-align: right;
-width: 300px;
+text-align: left;
+width: 100px;
 display: inline-block;
 }
 
@@ -32,6 +32,4 @@ width: 400px;
 
 table.eocdbr {
 width: 450px;
-margin-left: auto;
-margin-right: auto;
 }

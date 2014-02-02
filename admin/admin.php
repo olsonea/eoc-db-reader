@@ -37,9 +37,21 @@ function eocdbr_add_plugins_page(){
     $menu_slug = 'eocdbr-admin';
     $function = 'eocdbr_admin_page';
     $icon_url = plugin_dir_url( __FILE__ ).'images/eocdbr.png';
-    add_menu_page($page_title, $menu_title, $capability, $menu_slug, $function, $icon_url);
+    
+    $my_page = add_menu_page($page_title, $menu_title, $capability, $menu_slug, $function, $icon_url);
+    add_action( 'load-' . $my_page, 'load_admin_css' );    
 }
 add_action( 'admin_menu','eocdbr_add_plugins_page');
+
+function load_admin_css(){
+	add_action( 'admin_enqueue_scripts', 'enqueue_admin_css' );
+}
+
+function enqueue_admin_css($page) {
+	$admin_css = plugins_url('/css/eocdbr-admin.css',__FILE__);
+	wp_enqueue_style('eocdbr-admin', $admin_css);
+}
+
 
 function eocdbr_admin_page(){ ?>
     <div class="wrap">
@@ -55,8 +67,8 @@ function eocdbr_admin_page(){ ?>
                     dbr_table_select_options($results);
                 ?>
                 	<tr>
-						<th><label class="eocdbr" for="eocdbr_query">Query: </label></th>
-						<td><input class="regular-text" type="text" id="eocdbr_query" name="eocdbr_query" value="<?php echo get_option('eocdbr_query'); ?>" /></td>
+						<th class="eocdbr"><label class="eocdbr" for="eocdbr_query">Query: </label></th>
+						<td class="eocdbr"><input class="eocdbr" type="text" id="eocdbr_query" name="eocdbr_query" value="<?php echo get_option('eocdbr_query'); ?>" /></td>
 					</tr>					
                 </table>
             <?php submit_button(); ?>
