@@ -3,6 +3,7 @@
 class DBR_RecordSet {
     private $query = '';
     private $results = array();
+    private $base_table = '';
 
     private function fetchRecordsArray(){
         global $wpdb;
@@ -17,6 +18,7 @@ class DBR_RecordSet {
     }
 
     private function formatForm(){
+		echo 'Base Table: ' . $this->base_table . '<br />';
 		?>
 			<div class=wrap>
 				<form method="post" action ="">
@@ -30,6 +32,8 @@ class DBR_RecordSet {
 				</form>
 			</div> 
 		<?php
+		$_POST['table_name'] = $this->base_table;
+		
 	}
 
 	private function writeRecords(){
@@ -41,22 +45,35 @@ class DBR_RecordSet {
 	public function setQuery($query_string){
         $this->query = $query_string;
     }
+    
+    public function setBaseTable($query_string){
+		global $wpdb;
+		$explain = array();
+		$base_table_query = 'EXPLAIN '. $query_string;
+		$explain = $wpdb->get_row($base_table_query,ARRAY_A);
+		$this->base_table = $explain["table"];
+	}
      
     public function displayTable(){
         $this->fetchRecordsArray($this->query);
         if(count($this->results) == 0) {
-            echo '<em>No rows returned</em>';
+			?>
+            <em>No rows returned</em>
+            <?php
         } else {
             echo '<table class="eocdbr"><thead><tr><th class="eocdbr">'.implode('</th><th class="eocdbr">', array_keys(reset($this->results))).'</th></tr></thead><tbody>'."\n";
             foreach($this->results as $result) {
                 echo '<tr><td class="eocdbr">'.implode('</td><td>', array_values($result)).'</td></tr>'."\n";
             }
-            echo '</tbody></table>';
+            ?>
+            </tbody></table>
+            <?php
         }
     }
 
     public function displayForm(){
         if (!isset($_POST['submit'])) {
+			$this->setBaseTable ($this->query);
             $this->fetchRecordsObject($this->query);
             if(count($this->results) == 0) {
                 echo '<em>No rows returned</em>';
