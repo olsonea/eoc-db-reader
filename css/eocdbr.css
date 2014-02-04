@@ -25,13 +25,17 @@ select.eocdbr {
 	width: 200px;
 }
 
-input.eocdbr[type="text"]{
+input.eocdbr[type="text"] {
 	text-align: left;
 	width: 400px;
 }
 
-input.eocdbr[readonly="readonly"]{
+input.eocdbr[readonly="readonly"] {
     background-color:gainsboro;
+}
+
+tr.highlight {
+	background-color:deepskyblue;
 }
 
 table.eocdbr {

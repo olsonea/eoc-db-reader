@@ -33,3 +33,7 @@ width: 400px;
 table.eocdbr {
 width: 450px;
 }
+
+tr.highlight {
+	background-color:deepskyblue;
+}
