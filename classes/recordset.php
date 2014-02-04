@@ -73,7 +73,7 @@ class DBR_RecordSet {
 
     public function displayForm(){
         if (!isset($_POST['submit'])) {
-			$this->setBaseTable ($this->query);
+			//$this->setBaseTable ($this->query);
             $this->fetchRecordsObject($this->query);
             if(count($this->results) == 0) {
                 echo '<em>No rows returned</em>';
