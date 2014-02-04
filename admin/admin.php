@@ -77,7 +77,7 @@ function eocdbr_admin_page(){ ?>
 			$query_id = 4;
 			$query = new DBR_Query();
 			$rc = new DBR_RecordSet();
-			$rc->setQuery($query->get_query_string_by_id($query_id));
+			$rc->setQuery($query->get_select_query_string_by_id($query_id));
 			$rc->displayTable();
         ?>
     </div>

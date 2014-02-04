@@ -3,9 +3,9 @@
 class DBR_Query {
     private $query_string = '';
 
-    public function get_query_string_by_id($query_id){
+    public function get_select_query_string_by_id($query_id){
         global $wpdb;
-        $this->query_string = $wpdb->get_var($wpdb->prepare("SELECT query FROM wp_dbr_queries WHERE query_id = %d;", $query_id));
+        $this->query_string = $wpdb->get_var($wpdb->prepare("SELECT select_query FROM wp_dbr_queries WHERE query_id = %d;", $query_id));
         return $this->query_string;
     }
 
