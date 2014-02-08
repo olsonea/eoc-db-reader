@@ -18,6 +18,10 @@ function eocdbr_register_stylesheet(){
 }
 add_action( 'wp_enqueue_scripts', 'eocdbr_register_stylesheet' );
 
+function eocdbr_register_jeditable(){
+	wp_enqueue_script( 'jquery.jeditable', 'http://www.appelsiini.net/download/jquery.jeditable.js', array('jquery'));
+}
+add_action ( 'wp_enqueue_scripts', 'eocdbr_register_jeditable');
 
 function eocdbr_register_javascript(){
 	wp_enqueue_script( 'table', plugins_url('js/table.js', __FILE__), array('jquery'));
@@ -38,7 +42,7 @@ function dbr_show_table($atts){
     $query_type = 'SELECT';
     $query = new DBR_Query();
     $rc = new DBR_RecordSet();
-    $rc->setQuery($query->get_select_query_string_by_id($query_set_id, $query_type));
+    $rc->setQuery($query->get_query_string_by_id($query_set_id, $query_type));
     $rc->displayTable();
 }
 add_shortcode('dbr_show_table','dbr_show_table');
