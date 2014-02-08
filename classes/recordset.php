@@ -65,9 +65,9 @@ class DBR_RecordSet {
             <em>No rows returned</em>
             <?php
         } else {
-            echo '<table class="widefat post fixed"><thead><tr><th class="eocdbr">'.implode('</th><th class="eocdbr">', array_keys(reset($this->results))).'</th></tr></thead><tbody>'."\n";
+            echo '<table id="data" class="widefat post fixed"><thead><tr><th class="eocdbr">'.implode('</th><th class="eocdbr">', array_keys(reset($this->results))).'</th></tr></thead><tbody>'."\n";
             foreach($this->results as $result) {
-                echo '<tr><td class="eocdbr">'.implode('</td><td>', array_values($result)).'</td></tr>'."\n";
+                echo '<tr><td class="eocdbr click">'.implode('</td><td class="eocdbr click">', array_values($result)).'</td></tr>'."\n";
             }
             ?>
             </tbody></table>

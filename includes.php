@@ -19,7 +19,9 @@ function eocdbr_register_stylesheet(){
 add_action( 'wp_enqueue_scripts', 'eocdbr_register_stylesheet' );
 
 function eocdbr_register_jeditable(){
-	wp_enqueue_script( 'jquery.jeditable', 'http://www.appelsiini.net/download/jquery.jeditable.js', array('jquery'));
+	wp_enqueue_script( 'jquery.dataTables', "http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.js", array('jquery'));
+	wp_enqueue_script( 'jquery.jeditable', "http://www.appelsiini.net/download/jquery.jeditable.mini.js", array('jquery'));
+	wp_enqueue_script( 'jedit', plugins_url('js/jedit.js', __FILE__), array('jquery'));
 }
 add_action ( 'wp_enqueue_scripts', 'eocdbr_register_jeditable');
 
