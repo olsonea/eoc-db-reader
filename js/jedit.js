@@ -1,10 +1,15 @@
-jQuery(document).ready(function($) {  
-	$(".click").editable('save.php', { 
-		indicator 	: "<img src='<?php plugins_url('img/indicator.gif', __FILE__)'>",
+jQuery(document).ready(function($) { 
+	//alert(ajaxurl); //Check to see the value of ajaxurl.
+	//var oTable = $.("#data").dataTable();
+	
+	$(".click").editable(ajaxurl + '?action=writeValue', { 
+		indicator 	: "Saving...",
 		tooltip   	: "Click to edit...",
 		cancel    	: 'Cancel',
 		submit    	: 'OK',
-		style  		: "inherit"
+		style  		: "inherit",
+		callback	: function(value,settings){
+			console.log(value);
+		}
 	});
- 
 });

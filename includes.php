@@ -14,14 +14,16 @@ include_once($filepath.'/classes/recordset.php');
 
 function eocdbr_register_stylesheet(){
     wp_register_style( 'eocdbr', plugins_url('css/eocdbr.css', __FILE__) );
+    wp_register_style( 'dataTables', plugins_url('css/demo_table.css', __FILE__) );
     wp_enqueue_style( 'eocdbr' );
+    wp_enqueue_style( 'dataTables' );
 }
 add_action( 'wp_enqueue_scripts', 'eocdbr_register_stylesheet' );
 
 function eocdbr_register_jeditable(){
 	wp_enqueue_script( 'jquery.dataTables', "http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.js", array('jquery'));
 	wp_enqueue_script( 'jquery.jeditable', "http://www.appelsiini.net/download/jquery.jeditable.mini.js", array('jquery'));
-	wp_enqueue_script( 'jedit', plugins_url('js/jedit.js', __FILE__), array('jquery'));
+	wp_enqueue_script( 'jedit', plugins_url('js/jedit.js', __FILE__), array('jquery'),'1.0.0',true);
 }
 add_action ( 'wp_enqueue_scripts', 'eocdbr_register_jeditable');
 
@@ -59,5 +61,26 @@ function dbr_show_form($atts){
 }
 add_shortcode('dbr_show_form','dbr_show_form');
 
-?>
+function writeValue(){
+	global $wpdb;
+	$table			= "wp_dbr_employee";
+	$user_id		= 1;
+	$key			= $_POST['id'];
+	$value          = $_POST['value'];
+	$data			= array($key => $value);
+	$where			= array("user_id" => $user_id);
+	$wpdb->update( $table, $data, $where );
+	return $value;
+	die();
+}
+add_action('wp_ajax_writeValue','writeValue');
 
+function dbr_ajaxurl() {
+?>
+<script type="text/javascript">
+var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+</script><?php
+}
+add_action('wp_head','dbr_ajaxurl');
+
+?>

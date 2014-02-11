@@ -21,19 +21,15 @@ class DBR_RecordSet {
 		echo 'Base Table: ' . $this->base_table . '<br />';
 		?>
 			<div class=wrap>
-				<form method="post" action ="">
-					<table class="widefat post fixed">
-					<?php 
-					echo "\t";
-					foreach ($this->results as $key => $value){
-						echo '<tr><th class="eocdbr"><label class="eocdbr" for="'.$key.'">'.$key.': </label></th>'."\n"."\t"."\t"."\t"."\t"."\t"."\t"."\t";
-						echo '<td class="eocdbr"><input class="eocdbr" type="text" id="'.$key.'" name="'.$key.'" value="'.$value.'" /></td></tr>'."\n"."\t"."\t"."\t"."\t"."\t"."\t";
-					}
-					echo "\n";
-					?>
-					</table>
-					<button type="submit" name="submit">Submit</button>
-				</form>
+				<table class="eocdbr" id="data">
+				<?php 
+				echo "\t";
+				foreach ($this->results as $key => $value){?>
+					<tr><th class="eocdbr"><?php echo $key ?></th><td class="eocdbr click" id="<?php echo $key ?>"><?php echo $value?></td></tr>
+					<?php
+				}
+				?>
+				</table>
 			</div> 
 		<?php
 		$_POST['table_name'] = $this->base_table;
@@ -65,9 +61,9 @@ class DBR_RecordSet {
             <em>No rows returned</em>
             <?php
         } else {
-            echo '<table id="data" class="widefat post fixed"><thead><tr><th class="eocdbr">'.implode('</th><th class="eocdbr">', array_keys(reset($this->results))).'</th></tr></thead><tbody>'."\n";
+            echo '<table id="data" class="display"><thead><tr><th class="eocdbr">'.implode('</th><th class="eocdbr">', array_keys(reset($this->results))).'</th></tr></thead><tbody>'."\n";
             foreach($this->results as $result) {
-                echo '<tr><td class="eocdbr click">'.implode('</td><td class="eocdbr click">', array_values($result)).'</td></tr>'."\n";
+                echo '<tr><td class="click">'.implode('</td><td class="click">', array_values($result)).'</td></tr>'."\n";
             }
             ?>
             </tbody></table>
